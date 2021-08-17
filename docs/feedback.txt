@@ -1,0 +1,47 @@
+At first glance, here's some of my comments and feedback for the admin portal:
+1. I need to see how much revenue we've made from people downloading and paying for the app.
+2. Is there a way that I can send a registered user a promo code for them to share the app with others for free (e.g., I create a promo code for 10 free app downloads and send it to a user to share).
+3. We have 3 user platforms - web, iOS and Android. I'd like to see which of these a registered user is using
+4. I'd like to be able to see account managers/designees - those users that have been invited to manage someone's account
+5. Is there a way to get a full list of all the contacts loaded into the software for each digital legacy? The see which contacts belong to which digital legacy
+6. The Burial link isn't working yet.
+7. For a Charity, I'd like to be able to see who the charity belongs too
+8. For the Digital Legacy, Title should be changed to Name
+9. Should I be able to click on Digital Legacy to open it? Similar for all the data rows provided?
+10. When I click on any of the dashboard summaries, nothing happens...shouldn't I be able to click on them to drill-down to the details?
+11. Rather than have an update button for each dashboard summary...should we have one refresh/update button in the right corner?
+12. For a registered user, it would be good to see the last time they used the software/app.
+13. For a digital legacy, it would be good to see how many times it has been edited, viewed, shared and searched
+14. For a charity, it would be good to see the last time a donation was made for it.
+15. For digital legacies, it would be good to see which one are public versus private, the same for the burials
+16. For registered users, it would be good to see which ones have opted in and out of communications, etc.
+17. For registered users, I'd like to be able to click on the record to see their profile details, and or their account details
+18. Is there a way to see which registered user is sharing the app the most.
+19. Is there a way for us to close/update an account for a registered user? Or to close down/update a digital legacy? Can I assign a manager for a digital legacy in the case where the user and the designee die at the same time?
+20. Is there a way for us to see how much space a digital legacy is taking up based on photos, videos, etc. uploaded to their account? We have a limit which is why this needs to be tracked.
+
+Feedback point out of scope
+1. I need to see how much revenue we've made from people downloading and paying for the app.
+2. Is there a way that I can send a registered user a promo code for them to share the app with others for free (e.g., I create a promo code for 10 free app downloads and send it to a user to share).
+3. I'd like to be able to see account managers/designees - those users that have been invited to manage someone's account
+4. Is there a way to get a full list of all the contacts loaded into the software for each digital legacy? The see which contacts belong to which digital legacy
+5. For a registered user, it would be good to see the last time they used the software/app.
+6. For a digital legacy, it would be good to see how many times it has been edited, viewed, shared and searched
+7. For registered users, it would be good to see which ones have opted in and out of communications, etc.
+8. Is there a way for us to close/update an account for a registered user? Or to close down/update a digital legacy? Can I assign a manager for a digital legacy in the case where the user and the designee die at the same time?
+9. Is there a way for us to see how much space a digital legacy is taking up based on photos, videos, etc. uploaded to their account? We have a limit which is why this needs to be tracked.
+
+Feedback points
+
+1. We have 3 user platforms - web, iOS and Android. I'd like to see which of these a registered user is using
+2. The Burial link isn't working yet.
+3. For a Charity, I'd like to be able to see who the charity belongs too
+4. For the Digital Legacy, Title should be changed to Name
+5. Should I be able to click on Digital Legacy to open it? Similar for all the data rows provided?
+6. When I click on any of the dashboard summaries, nothing happens...shouldn't I be able to click on them to drill-down to the details?
+7. Rather than have an update button for each dashboard summary...should we have one refresh/update button in the right corner?
+8. For a charity, it would be good to see the last time a donation was made for it.
+9. For digital legacies, it would be good to see which one are public versus private, the same for the burials
+10.For registered users, I'd like to be able to click on the record to see their profile details, and or their account details
+11.Is there a way to see which registered user is sharing the app the most.
+

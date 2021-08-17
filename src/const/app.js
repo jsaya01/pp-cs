@@ -1,0 +1,1 @@
+export const PROFILE_DATA = 'profile_data'
