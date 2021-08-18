@@ -5,82 +5,46 @@ import logo from "assets/img/logo.png";
 import * as Yup from 'yup'
 import SemanticInput from 'components/SemanticInput';
 import ButtonView from 'components/Button'
-import Loader from 'components/Loader'
-import AppUtils from 'utils/AppUtils';
-import { loginAccount } from 'actions/auth'
-import { useDispatch, useSelector } from 'react-redux';
 import { useToasts } from 'react-toast-notifications';
-import {CognitoUser,AuthenticationDetails} from "amazon-cognito-identity-js";
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
 
 function Login() {
     const { addToast } = useToasts()
-    const dispatch = useDispatch()
-    const auth = useSelector(state => state.auth)
     const validationSchema = Yup.object().shape({
-
-        email: Yup.string()
-            .email("Enter  valid email address")
-            .max(100, "Email must be less than 100 characters")
-            .required("Email is required"),
-        password: Yup.string()
-            .required("Password is required")
+        // email: Yup.string()
+        //     .email("Enter  valid email address")
+        //     .max(100, "Email must be less than 100 characters")
+        //     .required("Email is required"),
+        // password: Yup.string()
+        //     .required("Password is required")
     });
-
-    useEffect(() => {
-        checkLogged()
-    }, [])
-
-    function checkLogged() {
-        let accessToken = localStorage.getItem('admin_access_token')
-        if (accessToken) {
-            window.location.href = '#admin/dashboard'
-            return
-        }
-        AppUtils.showMessage('access_token', accessToken)
-    }
 
     function loginUser(values) {
 
-        const user = new CognitoUser({
-            Username:values.email,
-            Pool:UserPool,
-        })
+        const email = new CognitoUser({
+            Username: values.email,
+            Pool: UserPool,
+        });
 
         const authDetails = new AuthenticationDetails({
-            Username:values.email,
-            password:values.password
-        })
+            Username: values.email,
+            Password: values.password,
+        });
 
-        user.authenticateUser(authDetails,{
-            onSuccess: (data)=>{
+        email.authenticateUser(authDetails, {
+            onSuccess: (data) => {
                 console.log(JSON.stringify(data))
-                addToast(JSON.stringify(data), { appearance: 'success' });
+                addToast("Login Success", { appearance: 'success' });
+                console.log(data.idToken)
             },
-            onFailure:(error)=>{
-                addToast(error.message, { appearance: 'error' });
-            }
-        })
-
-        // window.location.href = '#/users'
-        // // AppUtils.showMessage("values", values)
-        // // //   window.location.href = '#admin/dashboard'
-        // // dispatch(loginAccount({
-        // //     email: values.email,
-        // //     password: values.password,
-        // //     successCb: (response) => {
-        // //         AppUtils.showMessage('success response', response)
-        // //         window.location.href = '#admin/dashboard'
-        // //     },
-        // //     failureCb: (response) => {
-        // //         AppUtils.showMessage('failure response', response)
-        // //         window.location.href = '#admin/dashboard'
-        // //         // addToast(response.errors[0], {
-        // //         //     appearance: 'error',
-        // //         //     autoDismiss: true,
-        // //         // })
-        // //     },
-        // // }))
+            onFailure: (error) => {
+                addToast(error.message, {
+                    appearance: 'error',
+                    autoDismiss: true
+                });
+            },
+        });
     }
 
     return (
@@ -142,13 +106,13 @@ function Login() {
                                                 value={values.password}
                                                 className={touched.password && errors.password ? "error" : null}
                                                 onKeyUp={(e) => e.keyCode === 13 ? handleSubmit() : null}
-                                                
-                                                
+
+
                                             />
                                             {touched.password && errors.password ? (
                                                 <div className="error-message">{errors.password}</div>
                                             ) : null}
-                                            
+
                                         </Col>
                                     </Row>
                                     <Row className={'justify-content-center pt-2'} noGutters>
@@ -158,20 +122,15 @@ function Login() {
                                     </Row>
                                     <Row className={'pt-3 justify-content-center'} noGutters>
                                         <Col md={6} className="d-flex justify-content-center">
-
                                             <ButtonView
                                                 variant={'primary'}
                                                 title={'Login'}
                                                 block={true}
                                                 onClick={handleSubmit}
                                             />
-
                                         </Col>
                                     </Row>
-
-                                    <Loader
-                                        active={auth.loading}
-                                    />
+                                   
                                 </>
                             )}
                         </Formik>

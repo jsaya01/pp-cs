@@ -28,6 +28,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import Login from "views/Login";
 import Forgot from "views/Forgot";
+import ChangePassword from "views/ChangePassword";
 import Users from "views/Users";
 import UserDetails from "views/UserDetail";
 import Questions from "views/Questions";
@@ -45,6 +46,7 @@ ReactDOM.render(
         <Switch>          
           <Route path="/login" component={Login} />
           <Route path="/forgot" component={Forgot} />
+          <Route path="/change-password" component={ChangePassword} />
           <Route path="/users" component={Users} />
           <Route path="/user-details" component={UserDetails} />
           <Route path="/questions" component={Questions} />

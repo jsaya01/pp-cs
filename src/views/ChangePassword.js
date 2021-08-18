@@ -3,36 +3,33 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { Formik } from 'formik'
 import logo from "assets/img/logo.png";
 import SemanticInput from 'components/SemanticInput';
-import { useToasts } from 'react-toast-notifications';
 import ButtonView from 'components/Button'
+import { useToasts } from 'react-toast-notifications';
 import { CognitoUser } from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
 
-function Forgot() {
+function ChangePassword() {
     const { addToast } = useToasts()
-    function forgotPass(values) {
-
+    function resetPassword(values) {
+        console.log(values.code)
         const getUser = () => {
+            let username = localStorage.getItem("username");
             return new CognitoUser({
-                Username: values.username,
+                Username:username,
                 Pool: UserPool
             });
         };
 
-        getUser().forgotPassword({
+        getUser().confirmPassword(values.code, values.password, {
             onSuccess: data => {
-                window.location.href = '#change-password'
+              console.log("onSuccess:", data);
+              window.location.href = '#login'
             },
             onFailure: err => {
-                console.error("onFailure:", err);
                 addToast(err.message, {
                     appearance: 'error',
                     autoDismiss: true
                 });
-            },
-            inputVerificationCode: data => {
-                localStorage.setItem("username",values.username)
-                window.location.href = '#change-password'
             }
         });
     }
@@ -46,14 +43,14 @@ function Forgot() {
                 <Col md={8} className="mt-3 offset-md-2" sm={6}>
                     <div className="dash-container">
                         <Row className="justify-content-center mb-5">
-                            <h2 className="text ">Forgot Password!</h2>
+                            <h2 className="text ">Reset Password!</h2>
                         </Row>
                         <Formik
-                            initialValues={{ email: "" }}
+                            initialValues={{ code: "",password: "" }}
                             // Hooks up our validationSchema to Formik 
                             enableReinitialize={true}
                             onSubmit={async (values) => {
-                                forgotPass(values)
+                                resetPassword(values)
                             }}>
                             {({
                                 values,
@@ -68,22 +65,44 @@ function Forgot() {
                                     <Row className="justify-content-center" noGutters>
                                         <Col md={9}>
                                             <SemanticInput
-                                                placeholder={'Enter your username '}
+                                                placeholder={'Enter your code '}
                                                 icon={'envelope'}
                                                 position={'left'}
-                                                name="username"
+                                                name="code"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
-                                                value={values.username}
-                                                className={touched.username && errors.username ? "error" : null}
+                                                value={values.code}
+                                                className={touched.code && errors.code ? "error" : null}
                                                 onKeyUp={(e) => e.keyCode === 13 ? handleSubmit() : null}
                                             />
-                                            {touched.username && errors.username ? (
-                                                <div className="error-message">{errors.username}</div>
+                                            {touched.code && errors.code ? (
+                                                <div className="error-message">{errors.code}</div>
                                             ) : null}
                                         </Col>
 
                                     </Row>
+
+                                    <Row className="justify-content-center" noGutters>
+                                        <Col md={9}>
+                                            <SemanticInput
+                                                placeholder={'Enter your password '}
+                                                icon={'envelope'}
+                                                position={'left'}
+                                                name="password"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.password}
+                                                className={touched.password && errors.password ? "error" : null}
+                                                onKeyUp={(e) => e.keyCode === 13 ? handleSubmit() : null}
+                                            />
+                                            {touched.password && errors.password ? (
+                                                <div className="error-message">{errors.password}</div>
+                                            ) : null}
+                                        </Col>
+
+                                    </Row>
+
+                                  
 
                                     <Row className={'pt-3 justify-content-center'} noGutters>
                                         <Col md={6} className="d-flex justify-content-center">
@@ -97,6 +116,8 @@ function Forgot() {
 
                                         </Col>
                                     </Row>
+
+
                                 </>
                             )}
                         </Formik>
@@ -108,4 +129,4 @@ function Forgot() {
     )
 }
 
-export default Forgot
+export default ChangePassword
