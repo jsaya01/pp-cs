@@ -5,9 +5,46 @@ import logo from "assets/img/logo.png";
 import userPics from "assets/img/faces/face-2.jpg";
 import SemanticInput from 'components/SemanticInput';
 import ButtonView from 'components/Button'
-import Loader from 'components/Loader'
+import Amplify, { API } from 'aws-amplify'
+import aws_exports from '../aws-exports';
+Amplify.configure(aws_exports);
+
 
 function Users() {
+
+  let tokenStr ='eyJraWQiOiJVd1V3Ulc5bnZaU00xdzA4SjczeU42NkxmSWdoWkxsUHczUk9icnNITnBJPSIsImFsZyI6IkhTNTEyIn0.eyJvcmlnaW5fanRpIjoiNWE4ZTgxNWMtZDE1My00YWE1LTkwYjQtMDQxYjhhOWIyMzJlIiwic3ViIjoiMjkyMWZlNjYtODdhYS00NjhlLWJkOTUtOWYxYmViYWJlMTcyIiwiYXVkIjoiM2hxYXJqbjE5ZXJqMjZub2k1YnY3b2s5MXYiLCJldmVudF9pZCI6IjIzNDM5YzM4LTdjNGUtNDlmNC1hNmMwLTU1OGJjNTUyMzYzMiIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNjI5Mjg5MDA1LCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLWVhc3QtMi5hbWF6b25hd3MuY29tL3VzLWVhc3QtMl9CaHhZclMyMmIiLCJjb2duaXRvOnVzZXJuYW1lIjoiZGV2QHRlc3QuY29tIiwiZXhwIjoxNjI5MjkyNjA1LCJpYXQiOjE2MjkyODkwMDUsImp0aSI6Ijk0YjE0NzZlLWE5ZDEtNDk0YS1hZmZjLWI5MGYwNjI0YjM4MyIsImVtYWlsIjoiZGV2QHRlc3QuY29tIn0.nmo-0UBGc47CcOsKpGWnSpApvJfxBlDWTdMlckumy0v8B5gUZh0x-DNuWP00qhNWsbi6enFhkjVRwP4fReagoA'
+  // const api = 'https://medkpinmsk.execute-api.us-east-2.amazonaws.com/dev/pools/sport/NFL/true';
+ 
+  const apiName = 'NFL';
+  const path = '/'; 
+  const myInit = { // OPTIONAL
+      headers: {
+        "Content-Type" : "application/json",
+        "Access-Control-Allow-Headers" : "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+        "Access-Control-Allow-Methods" : "OPTIONS,POST",
+        "Access-Control-Allow-Credentials" : true,
+        "Access-Control-Allow-Origin" : "*",
+        "X-Requested-With" : "*",
+        "Authorization": `Bearer ${tokenStr}`
+      }, // OPTIONAL
+      response: true, 
+      // OPTIONAL (return the entire Axios response object instead of only response.data)
+      // queryStringParameters: {  // OPTIONAL
+      //     name: 'param',
+      // },
+  };
+  
+  API
+    .get(apiName, path, myInit)
+    .then(response => {
+      // Add your code here
+      console.log(response)
+    })
+    .catch(error => {
+      console.log(error);
+   });
+
+
 
   return (
     <Container >
@@ -18,7 +55,7 @@ function Users() {
       </Row>
       <Row md={12} className="pb-5 mb-5">
         <Col md={10} className="mt-5 offset-md-1" sm={6}>
-          <div class="dash-container">
+          <div className="dash-container">
             <Row className="justify-content-center mb-5">
               <h2 className="text ">User Search!</h2>
               <p className="text-center">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore.</p>

@@ -12,12 +12,12 @@ import UserPool from "../UserPool";
 function Login() {
     const { addToast } = useToasts()
     const validationSchema = Yup.object().shape({
-        // email: Yup.string()
-        //     .email("Enter  valid email address")
-        //     .max(100, "Email must be less than 100 characters")
-        //     .required("Email is required"),
-        // password: Yup.string()
-        //     .required("Password is required")
+        email: Yup.string()
+            .email("Enter  valid email address")
+            .max(100, "Email must be less than 100 characters")
+            .required("Email is required"),
+        password: Yup.string()
+            .required("Password is required")
     });
 
     function loginUser(values) {
@@ -37,6 +37,7 @@ function Login() {
                 console.log(JSON.stringify(data))
                 addToast("Login Success", { appearance: 'success' });
                 console.log(data.idToken)
+                window.location.href = '#users'
             },
             onFailure: (error) => {
                 addToast(error.message, {

@@ -4,13 +4,9 @@ import { combineReducers } from 'redux';
 // Reducers
 // import DocumentData from './DocumentData';
 import auth from './auth'
-import admin from './admin'
-import requests from './requests'
 
 const appReducer = combineReducers({
     auth,
-    admin,
-    requests
 });
 
 const rootReducer = (state, action) => {

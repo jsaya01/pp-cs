@@ -1,4 +1,3 @@
-import { SECRET_KEY } from "const/variables";
 
 const AppUtils = {
   showMessage: (key, message) => {

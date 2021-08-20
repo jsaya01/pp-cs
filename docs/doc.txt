@@ -1,2 +1,0 @@
-smartdata
-sudo ssh -i "EverArkApp.pem" ubuntu@3.12.142.225
