@@ -23,6 +23,7 @@ import Users from "views/Users";
 import UserDetails from "views/UserDetail";
 import Questions from "views/Questions";
 import Confirmation from "views/Confirmation";
+import PrivacyPolicy from "views/PrivacyPolicy";
 import { ToastProvider } from 'react-toast-notifications';
 import { Provider } from 'react-redux';
 import { store } from 'store'
@@ -42,6 +43,7 @@ ReactDOM.render(
           <Route path="/user-details" component={UserDetails} />
           <Route path="/questions" component={Questions} />
           <Route path="/confirmation" component={Confirmation} />
+          <Route path="/privacy-policy" component={PrivacyPolicy} />
           <Redirect from="/" to="/login" />
         </Switch>
       </HashRouter>
