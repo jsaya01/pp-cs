@@ -5,34 +5,13 @@ import logo from "assets/img/logo.png";
 import userPics from "assets/img/faces/face-2.jpg";
 import SemanticInput from 'components/SemanticInput';
 import ButtonView from 'components/Button'
-import Amplify, { API } from 'aws-amplify'
-import aws_exports from '../aws-exports';
-Amplify.configure(aws_exports);
+import Amplify, { API,  Auth } from 'aws-amplify'
 
 
-function Users() {
-
-  let tokenStr ='eyJraWQiOiJVd1V3Ulc5bnZaU00xdzA4SjczeU42NkxmSWdoWkxsUHczUk9icnNITnBJPSIsImFsZyI6IkhTNTEyIn0.eyJvcmlnaW5fanRpIjoiNWE4ZTgxNWMtZDE1My00YWE1LTkwYjQtMDQxYjhhOWIyMzJlIiwic3ViIjoiMjkyMWZlNjYtODdhYS00NjhlLWJkOTUtOWYxYmViYWJlMTcyIiwiYXVkIjoiM2hxYXJqbjE5ZXJqMjZub2k1YnY3b2s5MXYiLCJldmVudF9pZCI6IjIzNDM5YzM4LTdjNGUtNDlmNC1hNmMwLTU1OGJjNTUyMzYzMiIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNjI5Mjg5MDA1LCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLWVhc3QtMi5hbWF6b25hd3MuY29tL3VzLWVhc3QtMl9CaHhZclMyMmIiLCJjb2duaXRvOnVzZXJuYW1lIjoiZGV2QHRlc3QuY29tIiwiZXhwIjoxNjI5MjkyNjA1LCJpYXQiOjE2MjkyODkwMDUsImp0aSI6Ijk0YjE0NzZlLWE5ZDEtNDk0YS1hZmZjLWI5MGYwNjI0YjM4MyIsImVtYWlsIjoiZGV2QHRlc3QuY29tIn0.nmo-0UBGc47CcOsKpGWnSpApvJfxBlDWTdMlckumy0v8B5gUZh0x-DNuWP00qhNWsbi6enFhkjVRwP4fReagoA'
-  // const api = 'https://medkpinmsk.execute-api.us-east-2.amazonaws.com/dev/pools/sport/NFL/true';
- 
-  const apiName = 'NFL';
-  const path = '/'; 
-  const myInit = { // OPTIONAL
-      headers: {
-        "Content-Type" : "application/json",
-        "Access-Control-Allow-Headers" : "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-        "Access-Control-Allow-Methods" : "OPTIONS,POST",
-        "Access-Control-Allow-Credentials" : true,
-        "Access-Control-Allow-Origin" : "*",
-        "X-Requested-With" : "*",
-        "Authorization": `Bearer ${tokenStr}`
-      }, // OPTIONAL
-      response: true, 
-      // OPTIONAL (return the entire Axios response object instead of only response.data)
-      // queryStringParameters: {  // OPTIONAL
-      //     name: 'param',
-      // },
-  };
+function Users() { 
+  const apiName = 'BASE';
+  const path = '/pools/sport/NFL/true'; 
+  const myInit = {headers:{}};
   
   API
     .get(apiName, path, myInit)
@@ -42,6 +21,7 @@ function Users() {
     })
     .catch(error => {
       console.log(error);
+      console.log(error.message)
    });
 
 
