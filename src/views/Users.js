@@ -16,15 +16,11 @@ function Users() {
   // const api = 'https://medkpinmsk.execute-api.us-east-2.amazonaws.com/dev/pools/sport/NFL/true';
  
   const apiName = 'NFL';
-  const path = '/'; 
+  const path = ''; 
   const myInit = { // OPTIONAL
       headers: {
-        "Content-Type" : "application/json",
-        "Access-Control-Allow-Headers" : "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-        "Access-Control-Allow-Methods" : "OPTIONS,POST",
         "Access-Control-Allow-Credentials" : true,
         "Access-Control-Allow-Origin" : "*",
-        "X-Requested-With" : "*",
         "Authorization": `Bearer ${tokenStr}`
       }, // OPTIONAL
       response: true, 
@@ -33,6 +29,8 @@ function Users() {
       //     name: 'param',
       // },
   };
+
+  console.log(myInit)
   
   API
     .get(apiName, path, myInit)
@@ -43,8 +41,6 @@ function Users() {
     .catch(error => {
       console.log(error);
    });
-
-
 
   return (
     <Container >

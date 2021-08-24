@@ -8,6 +8,7 @@ import ButtonView from 'components/Button'
 import { useToasts } from 'react-toast-notifications';
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
+import { Auth } from 'aws-amplify';
 
 function Login() {
     const { addToast } = useToasts()
@@ -20,32 +21,38 @@ function Login() {
             .required("Password is required")
     });
 
-    function loginUser(values) {
+    async function loginUser(values) {
 
-        const email = new CognitoUser({
-            Username: values.email,
-            Pool: UserPool,
-        });
+        // const email = new CognitoUser({
+        //     Username: values.email,
+        //     Pool: UserPool,
+        // });
 
-        const authDetails = new AuthenticationDetails({
-            Username: values.email,
-            Password: values.password,
-        });
+        // const authDetails = new AuthenticationDetails({
+        //     Username: values.email,
+        //     Password: values.password,
+        // });
 
-        email.authenticateUser(authDetails, {
-            onSuccess: (data) => {
-                console.log(JSON.stringify(data))
-                addToast("Login Success", { appearance: 'success' });
-                console.log(data.idToken)
-                window.location.href = '#users'
-            },
-            onFailure: (error) => {
-                addToast(error.message, {
-                    appearance: 'error',
-                    autoDismiss: true
-                });
-            },
-        });
+        // email.authenticateUser(authDetails, {
+        //     onSuccess: (data) => {
+        //         console.log(JSON.stringify(data))
+        //         addToast("Login Success", { appearance: 'success' });
+        //         console.log(data.idToken)
+        //         window.location.href = '#users'
+        //     },
+        //     onFailure: (error) => {
+        //         addToast(error.message, {
+        //             appearance: 'error',
+        //             autoDismiss: true
+        //         });
+        //     },
+        // });
+        try {
+            const user = await Auth.signIn(values.email, values.password);
+            console.log("user ===>",user)
+        } catch (error) {
+            console.log('error signing in', error);
+        }
     }
 
     return (
@@ -131,7 +138,7 @@ function Login() {
                                             />
                                         </Col>
                                     </Row>
-                                   
+
                                 </>
                             )}
                         </Formik>
