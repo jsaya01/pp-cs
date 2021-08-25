@@ -126,7 +126,7 @@ function UserDetail() {
                                         </Table>
                                         <Row className={'pt-3 justify-content-center'} noGutters>
                                             <Col md={5} className="mr-2 mb-3 justify-content-center">
-                                                <a href="#/login">
+                                                <a href="#/users">
                                                     <ButtonView
                                                         variant={'danger'}
                                                         title={'Cancel'}
