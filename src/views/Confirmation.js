@@ -3,8 +3,15 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { Formik } from 'formik'
 import logo from "assets/img/logo.png";
 import ButtonView from 'components/Button';
+import { useDispatch, useSelector } from "react-redux";
+import { saveUserData } from 'actions/users'
+
 
 function Confirmation() {
+
+    const users = useSelector(state => state.users)
+    const userData = users.user;
+    console.log(userData)
 
     function loginUser(values) {
         window.location.href = '#/users'
@@ -21,7 +28,7 @@ function Confirmation() {
                     <div class="dash-container">
                         <Row className="justify-content-center mb-5">
                             <h2 className="text ">Confirmation</h2>
-                            <h5 className="text ">Bet has been placed for Sophie Garnier</h5>
+                            <h5 className="text ">Bet has been placed for {userData.firstName} {userData.lastName}</h5>
                         </Row>
                         <Formik
                             initialValues={{ email: "" }}

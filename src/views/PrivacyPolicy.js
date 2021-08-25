@@ -16,7 +16,7 @@ function PrivacyPolicy() {
                         <Row className="justify-content-center mb-5">
                             <h2 className="text ">Privacy Policy</h2>
                         </Row>
-                       <div>
+                        <div>
                             <h3>
                                 Meet The Team
                             </h3>
@@ -25,12 +25,12 @@ function PrivacyPolicy() {
                                 About Us
                             </h3>
                             <p>Description: Pick Perfect is a licensed, daily fantasysports app based out of Denver, Colorado.Users sign up and submit an entry into our daily fantasysports pool. Download the app on yourphone, answer 10 questions correctly, and have a chanceto win millions fora $20 entrance fee.Our mobile-first app works on both iOS and Androiddevices. We are here to change the game.</p>
-                       
+
                             <h3>
                                 Our Mission
                             </h3>
                             <p>PickPerfect is passionate about giving back. We arefor the people, by the people, and the firstto add a charitable element to daily fantasy sports.Users have a chance to win millions ofdollars in prize money. A portion of proceeds goesdirectly to our charity, Field of Dreams, toencourage the adoption of youth sports in developingareas around the United States. Simplypick all 10 questions perfect to win!</p>
-                       
+
                             <h3>
                                 Follow Pick Perfect
                             </h3>
@@ -45,7 +45,7 @@ function PrivacyPolicy() {
                                 Contact Us
                             </h3>
                             <p>Let’s chat. Contact us at help@pickperfect.co</p>
-                       
+
                             <h2>
                                 FAQs
                             </h2>
@@ -55,7 +55,7 @@ function PrivacyPolicy() {
                             <p>Go to the app store to download Pick Perfect (link).Once downloaded, enter your information todeposit money into your Pick Perfect account. Chooseyour 10 players and enter the prize poolfor a chance to win millions!</p>
                             <h3>
                                 How do I add funds?
-                            </h3> 
+                            </h3>
                             <p>PayPal is the online transaction process we use toget funds into your pick perfect account</p>
                             <h3>Is there any other way to add funds other than PayPal?</h3>
                             <p>Currently we only use paypal to get funds into your account. You can sign up in a coupleminutes via paypal if you haven't already done so.</p>
@@ -76,10 +76,10 @@ function PrivacyPolicy() {
                             <h3>Notes: Additional platforms to consider on the websiteafter we have more content</h3>
                             <p>Discord (will create account)</p>
                             <p>YouTube (Pick Perfect channel is set up)</p>
-                       
-                       </div>
-                          
-                              
+
+                        </div>
+
+
                     </div>
                 </Col>
                 <Col md={2} sm={3} />

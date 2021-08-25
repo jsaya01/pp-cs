@@ -1,17 +1,19 @@
-import { LOGOUT_SUCCESS } from 'actions/types';
+import { USER_FAILURE } from 'actions/types';
 import { combineReducers } from 'redux';
 
 // Reducers
 // import DocumentData from './DocumentData';
-import auth from './auth'
+import users from './users'
+import questions from './questions'
 
 const appReducer = combineReducers({
-    auth,
+    users,
+    questions,
 });
 
 const rootReducer = (state, action) => {
 
-    if ([LOGOUT_SUCCESS].includes(action.type)) {
+    if ([USER_FAILURE].includes(action.type)) {
        state = undefined
     }
   

@@ -6,9 +6,34 @@ import * as Yup from 'yup'
 import SemanticInput from 'components/SemanticInput';
 import ButtonView from 'components/Button'
 import { useToasts } from 'react-toast-notifications';
-import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import UserPool from "../UserPool";
-import { Auth } from 'aws-amplify';
+import Amplify from 'aws-amplify';
+import API from '@aws-amplify/api';
+import Auth from '@aws-amplify/auth';
+
+Amplify.configure({
+    // OPTIONAL - if your API requires authentication 
+    Auth: {
+        // REQUIRED - Amazon Cognito Identity Pool ID
+        identityPoolId: 'us-east-2:21a43261-471d-4806-8b53-9e9644d21a7c',
+        // REQUIRED - Amazon Cognito Region
+        region: 'us-east-2',
+        // OPTIONAL - Amazon Cognito User Pool ID
+        userPoolId: 'us-east-2_BhxYrS22b',
+        // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+        userPoolWebClientId: '3hqarjn19erj26noi5bv7ok91v',
+    },
+    API: {
+        endpoints: [
+            {
+                name: "BASE",
+                endpoint: "https://ofcfn44ech.execute-api.us-east-2.amazonaws.com/dev",
+                region: "us-east-2"
+            }
+        ]
+    }
+});
+Amplify.register(Auth);
+Amplify.register(API);
 
 function Login() {
     const { addToast } = useToasts()
@@ -21,38 +46,20 @@ function Login() {
             .required("Password is required")
     });
 
-    async function loginUser(values) {
+    const loginUser = async (values) => {
 
-        // const email = new CognitoUser({
-        //     Username: values.email,
-        //     Pool: UserPool,
-        // });
-
-        // const authDetails = new AuthenticationDetails({
-        //     Username: values.email,
-        //     Password: values.password,
-        // });
-
-        // email.authenticateUser(authDetails, {
-        //     onSuccess: (data) => {
-        //         console.log(JSON.stringify(data))
-        //         addToast("Login Success", { appearance: 'success' });
-        //         console.log(data.idToken)
-        //         window.location.href = '#users'
-        //     },
-        //     onFailure: (error) => {
-        //         addToast(error.message, {
-        //             appearance: 'error',
-        //             autoDismiss: true
-        //         });
-        //     },
-        // });
         try {
             const user = await Auth.signIn(values.email, values.password);
-            console.log("user ===>",user)
+            addToast("Login Success", { appearance: 'success', autoDismiss: true });
+            window.location.href = '#users'
+
         } catch (error) {
-            console.log('error signing in', error);
+            addToast(error.message, {
+                appearance: 'error',
+                autoDismiss: true
+            });
         }
+
     }
 
     return (
@@ -106,7 +113,7 @@ function Login() {
                                             <SemanticInput
                                                 type={"password"}
                                                 placeholder={'Enter your password'}
-                                                icon={'eye'}
+                                                icon={'key'}
                                                 position={'left'}
                                                 name="password"
                                                 onChange={handleChange}

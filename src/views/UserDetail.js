@@ -1,10 +1,56 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Card, Image, Table, InputGroup } from 'react-bootstrap'
+import { Formik } from 'formik'
 import logo from "assets/img/logo.png";
-import userPics from "assets/img/faces/face-2.jpg";
 import ButtonView from 'components/Button';
+import { useDispatch, useSelector } from "react-redux";
 
 function UserDetail() {
+
+    const users = useSelector(state => state.users)
+    const userData = users.user;
+
+    const [isCheckedAddress, setIsCheckedAddress] = useState(false);
+    const [isCheckedPincode, setIsCheckedPincode] = useState(false);
+    const [isCheckedEmail, setIsCheckedEmail] = useState(false);
+
+    const handleOnChangeAddress = () => {
+        setIsCheckedAddress(!isCheckedAddress);
+    };
+    const handleOnChangePincode = () => {
+        setIsCheckedPincode(!isCheckedPincode);
+    };
+
+    const handleOnChangeEmail = () => {
+        setIsCheckedEmail(!isCheckedEmail);
+    };
+
+    function questionButton() {
+        if (isCheckedAddress && isCheckedPincode && isCheckedEmail) {
+            return (
+                <a href="#/questions">
+                    <ButtonView
+                        variant={'primary'}
+                        title={'Continue'}
+                        block={true}
+                    />
+                </a>
+            )
+
+        }
+        else {
+            return (
+                <ButtonView
+                    variant={'success'}
+                    title={'Continue'}
+                    block={true}
+                />
+
+            )
+        }
+    }
+
+
     return (
         <Container >
             <Row className="justify-content-center mt-5">
@@ -22,38 +68,61 @@ function UserDetail() {
                         <Row className="mt-5 detail offset-md-2">
                             <Col md={9}>
                                 <Card className="text-center pb-5 pt-2">
-                                    <Card.Header><Image src={userPics} roundedCircle />  </Card.Header>
 
                                     <Card.Body>
+
                                         <Table responsive>
                                             <tbody>
                                                 <tr>
                                                     <th></th>
-                                                    <th>Sophie Garnier</th>
+                                                    <th>{userData.firstName}</th>
                                                     <th>Confirmed</th>
                                                 </tr>
                                                 <tr>
                                                     <td>  <strong className="mr-3">Address</strong></td>
-                                                    <td>  Demo Street, House No 101</td>
-                                                    <td><InputGroup.Checkbox /></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong className="mr-3">Phone</strong></td>
-                                                    <td> +1 1234 5678 910</td>
-                                                    <td><InputGroup.Checkbox checked /></td>
+                                                    <td>  {userData.addressLine1} {userData.addressLine2}</td>
+                                                    <td>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="address"
+                                                            name="address"
+                                                            value="Address"
+                                                            checked={isCheckedAddress}
+                                                            onChange={handleOnChangeAddress}
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>  <strong className="mr-3">Pincode</strong></td>
-                                                    <td> 132 465</td>
-                                                    <td><InputGroup.Checkbox checked /></td>
+                                                    <td> {userData.zip}</td>
+                                                    <td>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="pincode"
+                                                            name="pincode"
+                                                            value="Pincode"
+                                                            checked={isCheckedPincode}
+                                                            onChange={handleOnChangePincode}
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>  <strong className="mr-3">Email</strong></td>
-                                                    <td> SophieGarnier911@gmail.com</td>
-                                                    <td><InputGroup.Checkbox checked /></td>
+                                                    <td> {userData.email}</td>
+                                                    <td>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="email"
+                                                            name="email"
+                                                            value="Email"
+                                                            checked={isCheckedEmail}
+                                                            onChange={handleOnChangeEmail}
+                                                        />
+                                                    </td>
                                                 </tr>
 
                                             </tbody>
+
                                         </Table>
                                         <Row className={'pt-3 justify-content-center'} noGutters>
                                             <Col md={5} className="mr-2 mb-3 justify-content-center">
@@ -66,15 +135,12 @@ function UserDetail() {
                                                 </a>
                                             </Col>
                                             <Col md={5} className="ml-2 justify-content-center">
-                                                <a href="#/questions">
-                                                    <ButtonView
-                                                        variant={'primary'}
-                                                        title={'Continue'}
-                                                        block={true}
-                                                    />
-                                                </a>
+
+                                                {questionButton()}
+
                                             </Col>
                                         </Row>
+
                                     </Card.Body>
                                 </Card>
                             </Col>

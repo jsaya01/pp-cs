@@ -15,15 +15,15 @@ function ChangePassword() {
         const getUser = () => {
             let username = localStorage.getItem("username");
             return new CognitoUser({
-                Username:username,
+                Username: username,
                 Pool: UserPool
             });
         };
 
         getUser().confirmPassword(values.code, values.password, {
             onSuccess: data => {
-              console.log("onSuccess:", data);
-              window.location.href = '#login'
+                console.log("onSuccess:", data);
+                window.location.href = '#login'
             },
             onFailure: err => {
                 addToast(err.message, {
@@ -46,7 +46,7 @@ function ChangePassword() {
                             <h2 className="text ">Reset Password!</h2>
                         </Row>
                         <Formik
-                            initialValues={{ code: "",password: "" }}
+                            initialValues={{ code: "", password: "" }}
                             // Hooks up our validationSchema to Formik 
                             enableReinitialize={true}
                             onSubmit={async (values) => {
@@ -102,7 +102,7 @@ function ChangePassword() {
 
                                     </Row>
 
-                                  
+
 
                                     <Row className={'pt-3 justify-content-center'} noGutters>
                                         <Col md={6} className="d-flex justify-content-center">

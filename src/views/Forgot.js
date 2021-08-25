@@ -31,7 +31,7 @@ function Forgot() {
                 });
             },
             inputVerificationCode: data => {
-                localStorage.setItem("username",values.username)
+                localStorage.setItem("username", values.username)
                 window.location.href = '#change-password'
             }
         });
