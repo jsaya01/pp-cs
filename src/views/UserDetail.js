@@ -4,11 +4,18 @@ import { Formik } from 'formik'
 import logo from "assets/img/logo.png";
 import ButtonView from 'components/Button';
 import { useDispatch, useSelector } from "react-redux";
+import { saveUserData } from 'actions/users'
 
 function UserDetail() {
-
+    const dispatch = useDispatch()
     const users = useSelector(state => state.users)
-    const userData = users.user;
+
+    if (users.user == null)
+        var user_data = JSON.parse(localStorage.getItem("user_data"))
+    else
+        var user_data = users.user;
+
+    const userData = user_data;
 
     const [isCheckedAddress, setIsCheckedAddress] = useState(false);
     const [isCheckedPincode, setIsCheckedPincode] = useState(false);
@@ -49,7 +56,14 @@ function UserDetail() {
             )
         }
     }
-
+    function cancleSubmit(){
+        dispatch(saveUserData({
+            data: null,
+            successCb: (res) => {
+                document.location.href="#users";
+            }
+        }))        
+    }
 
     return (
         <Container >
@@ -60,7 +74,7 @@ function UserDetail() {
             </Row>
             <Row md={12} className="pb-5 mb-5">
                 <Col md={10} className="mt-5 offset-md-1" sm={6}>
-                    <div class="dash-container">
+                    <div className="dash-container">
                         <Row className="justify-content-center mb-5">
                             <h2 className="text ">User Details</h2>
                             <p className="text-center">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore.</p>
@@ -126,13 +140,14 @@ function UserDetail() {
                                         </Table>
                                         <Row className={'pt-3 justify-content-center'} noGutters>
                                             <Col md={5} className="mr-2 mb-3 justify-content-center">
-                                                <a href="#/users">
+                                                
                                                     <ButtonView
                                                         variant={'danger'}
                                                         title={'Cancel'}
                                                         block={true}
+                                                        onClick={cancleSubmit}
                                                     />
-                                                </a>
+                                                
                                             </Col>
                                             <Col md={5} className="ml-2 justify-content-center">
 

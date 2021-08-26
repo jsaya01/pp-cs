@@ -7,18 +7,23 @@ import ButtonView from 'components/Button'
 import { useToasts } from 'react-toast-notifications';
 import Amplify, { API, Auth } from 'aws-amplify'
 import { useDispatch, useSelector } from "react-redux";
-import { saveUserData } from 'actions/users'
+import { saveUserData } from 'actions/users';
+import BeatLoader from "react-spinners/BeatLoader";
 
 function Users() {
+
+
+  let [loading, setLoading] = useState(false);
+  let [color, setColor] = useState("#131313");
+
   const { addToast } = useToasts()
   const dispatch = useDispatch()
   const users = useSelector(state => state.users)
   const userData = users.user;
   const [error, setError] = useState('')
 
-
   function searchUser(values) {
-
+    setLoading(true)
     const apiName = 'BASE';
     const path = '/getUserByCriteria';
     const myInit = {
@@ -34,12 +39,17 @@ function Users() {
         // Add your code here   
         ///if user not found
         if (!response.user) {
+          setLoading(false)
           addToast("User not found!", {
             appearance: 'error',
             autoDismiss: true
           });
         }
         else {
+          setLoading(false)
+          ////saved data also in local storage for lost data when reloading page 
+          localStorage.setItem("user_data",JSON.stringify(response.user))    
+          ///// save data in redux     
           dispatch(saveUserData({
             data: response.user,
             successCb: (res) => {
@@ -56,8 +66,15 @@ function Users() {
   function renderUsers() {
     if (userData !== null) {
       return (
+        
         <Col md={6}>
           <a href="#/user-details">
+          {/* <div className="sweet-loading">
+            <button onClick={() => setLoading(!loading)}>Toggle Loader</button>
+            <input value={color} onChange={(input) => setColor(input.target.value)} placeholder="Color of the loader" />
+
+           
+          </div> */}
             <Card>
               <Card.Body>
                 <Row>
@@ -136,9 +153,13 @@ function Users() {
                 </>
               )}
             </Formik>
-
+              <Row>
+                <Col md={12} className="text-center mt-5">
+                  <BeatLoader color={color} loading={loading}  size={30} />
+                </Col>
+              </Row>
             <Row className="mt-5 users">
-
+              
               {renderUsers()}
 
             </Row>

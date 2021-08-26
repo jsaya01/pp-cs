@@ -6,15 +6,26 @@ import Amplify, { API, Auth } from 'aws-amplify'
 import { useToasts } from 'react-toast-notifications';
 import { useDispatch, useSelector } from "react-redux";
 import { saveQuestionData } from 'actions/questions'
+import { saveUserData } from 'actions/users'
+import BeatLoader from "react-spinners/BeatLoader";
 
 function Questions() {
+
+    let [loading, setLoading] = useState(false);
+    let [color, setColor] = useState("#131313");
+
     const { addToast } = useToasts()
     const dispatch = useDispatch()
     const question = useSelector(state => state.questions)
     const questionData = question.questions
 
     const users = useSelector(state => state.users)
-    const userData = users.user;
+    if (users.user == null)
+    var user_data = JSON.parse(localStorage.getItem("user_data"))
+    else
+        var user_data = users.user;
+
+    const userData = user_data;
 
 
     // const poolId = users.user;
@@ -23,6 +34,7 @@ function Questions() {
     const [error, setError] = useState('')
 
     function getQeustionData() {
+        setLoading(true)
         const apiName = 'BASE';
         const path = '/pools/sport/NFL/trues';
         const myInit = { headers: {} };
@@ -37,14 +49,17 @@ function Questions() {
                         data: allQuestion,
                         successCb: (res) => {
                             ///result here
+                            setLoading(false)
                         }
                     }))
                 }
                 else {
+                    setLoading(false)
                     setError('No questions found')
                 }
             })
             .catch(error => {
+                setLoading(false)
                 console.log(error)
                 setError('No questions found')
             });
@@ -54,7 +69,7 @@ function Questions() {
     }, [])
 
     function onSave() {
-
+        setLoading(true)
         const apiName = 'BASE';
         const path = '/createBetForUser';
         const myInit = {
@@ -74,6 +89,7 @@ function Questions() {
         API
             .post(apiName, path, myInit)
             .then(response => {
+                setLoading(false)
                 if (response.status === "success") {
                     addToast("Success", { appearance: 'success', autoDismiss: true });
                     document.location.href = "#/confirmation";
@@ -83,6 +99,7 @@ function Questions() {
                 }
             })
             .catch(error => {
+                setLoading(false)
                 setError('No questions found')
                 addToast(error, { appearance: 'error', autoDismiss: true });
             });
@@ -140,6 +157,16 @@ function Questions() {
             )
         })
     }
+
+    function cancleSubmit(){
+        dispatch(saveUserData({
+            data: null,
+            successCb: (res) => {
+                document.location.href="#users";
+            }
+        }))        
+    }
+
     return (
 
         <Container >
@@ -151,6 +178,12 @@ function Questions() {
             </Row>
             <Row md={12} className="pb-5 mb-5">
                 <Col md={10} className="mt-5 offset-md-1" sm={6}>
+                     {/* ///// Loader Here*/}
+                     <Row>
+                        <Col md={12} className="text-center mt-5">
+                            <BeatLoader color={color} loading={loading}  size={30} />
+                        </Col>
+                    </Row>
                     <div class="dash-container">
                         <Row className="justify-content-center mb-5">
                             <h2 className="text ">Questions</h2>
@@ -172,13 +205,14 @@ function Questions() {
                                         {error == '' && (
                                             <Row className={'pt-3 justify-content-center'} noGutters>
                                                 <Col md={3} className="mr-2 mb-3 justify-content-center">
-                                                    <a href="#/users">
-                                                        <ButtonView
-                                                            variant={'danger'}
-                                                            title={'Cancel'}
-                                                            block={true}
-                                                        />
-                                                    </a>
+                                                   
+                                                    <ButtonView
+                                                        variant={'danger'}
+                                                        title={'Cancel'}
+                                                        block={true}
+                                                        onClick={cancleSubmit}
+                                                    />
+                                                   
                                                 </Col>
                                                 <Col md={3} className="ml-2 justify-content-center">
                                                     {/* <a href="#/confirmation"> */}
@@ -192,7 +226,12 @@ function Questions() {
                                                 </Col>
                                             </Row>
                                         )}
-
+                                        {/* ///// Loader Here*/}
+                                        <Row>
+                                            <Col md={12} className="text-center mt-5">
+                                                <BeatLoader color={color} loading={loading}  size={30} />
+                                            </Col>
+                                        </Row>
                                     </Card.Body>
                                 </Card>
                             </Col>

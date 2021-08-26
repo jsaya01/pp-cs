@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { Formik } from 'formik'
 import logo from "assets/img/logo.png";
@@ -9,6 +9,7 @@ import { useToasts } from 'react-toast-notifications';
 import Amplify from 'aws-amplify';
 import API from '@aws-amplify/api';
 import Auth from '@aws-amplify/auth';
+import BeatLoader from "react-spinners/BeatLoader";
 
 Amplify.configure({
     // OPTIONAL - if your API requires authentication 
@@ -36,6 +37,9 @@ Amplify.register(Auth);
 Amplify.register(API);
 
 function Login() {
+    let [loading, setLoading] = useState(false);
+    let [color, setColor] = useState("#131313");
+
     const { addToast } = useToasts()
     const validationSchema = Yup.object().shape({
         email: Yup.string()
@@ -47,13 +51,14 @@ function Login() {
     });
 
     const loginUser = async (values) => {
-
+        setLoading(true)
         try {
             const user = await Auth.signIn(values.email, values.password);
             addToast("Login Success", { appearance: 'success', autoDismiss: true });
             window.location.href = '#users'
 
         } catch (error) {
+            setLoading(false)
             addToast(error.message, {
                 appearance: 'error',
                 autoDismiss: true
@@ -145,7 +150,12 @@ function Login() {
                                             />
                                         </Col>
                                     </Row>
-
+                                    {/* ///// Loader Here*/}
+                                    <Row>
+                                        <Col md={12} className="text-center mt-5">
+                                        <BeatLoader color={color} loading={loading}  size={30} />
+                                        </Col>
+                                    </Row>
                                 </>
                             )}
                         </Formik>
