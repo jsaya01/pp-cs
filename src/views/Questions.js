@@ -21,7 +21,7 @@ function Questions() {
 
     const users = useSelector(state => state.users)
     if (users.user == null)
-    var user_data = JSON.parse(localStorage.getItem("user_data"))
+        var user_data = JSON.parse(localStorage.getItem("user_data"))
     else
         var user_data = users.user;
 
@@ -158,13 +158,13 @@ function Questions() {
         })
     }
 
-    function cancleSubmit(){
+    function cancleSubmit() {
         dispatch(saveUserData({
             data: null,
             successCb: (res) => {
-                document.location.href="#users";
+                document.location.href = "#users";
             }
-        }))        
+        }))
     }
 
     return (
@@ -178,10 +178,10 @@ function Questions() {
             </Row>
             <Row md={12} className="pb-5 mb-5">
                 <Col md={10} className="mt-5 offset-md-1" sm={6}>
-                     {/* ///// Loader Here*/}
-                     <Row>
+                    {/* ///// Loader Here*/}
+                    <Row>
                         <Col md={12} className="text-center mt-5">
-                            <BeatLoader color={color} loading={loading}  size={30} />
+                            <BeatLoader color={color} loading={loading} size={30} />
                         </Col>
                     </Row>
                     <div class="dash-container">
@@ -203,33 +203,35 @@ function Questions() {
 
                                     <Card.Body>
                                         {error == '' && (
-                                            <Row className={'pt-3 justify-content-center'} noGutters>
-                                                <Col md={3} className="mr-2 mb-3 justify-content-center">
-                                                   
-                                                    <ButtonView
-                                                        variant={'danger'}
-                                                        title={'Cancel'}
-                                                        block={true}
-                                                        onClick={cancleSubmit}
-                                                    />
-                                                   
-                                                </Col>
-                                                <Col md={3} className="ml-2 justify-content-center">
-                                                    {/* <a href="#/confirmation"> */}
-                                                    <ButtonView
-                                                        variant={'primary'}
-                                                        title={'Continue'}
-                                                        block={true}
-                                                        onClick={() => onSave()}
-                                                    />
-                                                    {/* </a> */}
-                                                </Col>
-                                            </Row>
+                                            loading == false && (
+                                                <Row className={'pt-3 justify-content-center'} noGutters>
+                                                    <Col md={3} className="mr-2 mb-3 justify-content-center">
+
+                                                        <ButtonView
+                                                            variant={'danger'}
+                                                            title={'Cancel'}
+                                                            block={true}
+                                                            onClick={cancleSubmit}
+                                                        />
+
+                                                    </Col>
+                                                    <Col md={3} className="ml-2 justify-content-center">
+                                                        {/* <a href="#/confirmation"> */}
+                                                        <ButtonView
+                                                            variant={'primary'}
+                                                            title={'Continue'}
+                                                            block={true}
+                                                            onClick={() => onSave()}
+                                                        />
+                                                        {/* </a> */}
+                                                    </Col>
+                                                </Row>
+                                            )
                                         )}
                                         {/* ///// Loader Here*/}
                                         <Row>
                                             <Col md={12} className="text-center mt-5">
-                                                <BeatLoader color={color} loading={loading}  size={30} />
+                                                <BeatLoader color={color} loading={loading} size={30} />
                                             </Col>
                                         </Row>
                                     </Card.Body>
